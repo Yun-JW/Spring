@@ -119,6 +119,34 @@
 @ dependency와 scope
 - scope : 해당 의존성을 언제 어떻게 클래스 패스에 넣을 것인가?
 - compile : 기본 범위로 생략 시 적용되며 컴파일과 런타임에 모두 사용 가능
+- provided : 컴파일과 테스트시에는 사용되지만 런타임에는 외부 환경에서 제공되는 것을 사용
+	운전 연습을 할 때에는 연습용 차를 사용하지만 막상 시험 볼때는 시험장의 차를 사용하는 케이스
+	Servlet API를 사용하는데 런타임에는 WAS가 이를 제공하기 때문에 packaging 과정에서 제외하려면 provided로 설정
+- runtime : 컴파일 시에는 불필요하고 실생 시에만 필요한 경우
+	JDBC 드라이버 처럼 런타임이나 테스트 시는 classpath에 포함되지만 컴파일 시에는 포함되지 않음
+- test : 테스트 진행 시에만 사용되고 배포 시에는 제오됨. 따라서 main 영역에서는 사용 않음
+- system : 로컬 시스템에 설치된 JAR 파일처럼 외부에서 제공되는 의존성을 참조하는 경우에 사용
+
+@ life cycle 관리
+- clean, default, site 3가지 life cycle을 가진
+- clean : 이전 빌드에서 생성된 파일들을 제거하는 과정
+- default(또는 build) : 프로젝트 배포를 위한 실제 빌드와 배포 과정
+- site : 프로젝트 문서와 사이트 생성
+
+@ default(build) life cycle의 주요 phase
+- Compile : 프로젝트의 소스코드를 컴파일 하는 단계
+- Test : 단위 테스트를 수행하는 단계
+- Package : 컴파일 결과물과 리소스를 jar, war으로 묶음
+- Install : 패키지를 로컬 저장소에 설치하는 단계
+- Deploy : 만들어진 패키지를 원격 저장소에 배포하는 단계
+
+- 각 Phase는 그냥 논리적인 단계
+- 실제로는 phase에 연결된 plugin이 있으며 이 plugin 들이 수행할 수 있는 명령(goal)이 실
+# JAR(Java Archive) : 자바 클래스 파일들, 이미지, 설정 파일 등을 하나로 묶은 압축 파일
+			자바 프로그램을 배포할 때 사용
+# WAR(Web Application Archive) : JSP, 서블릿, HTML, CSS, 이미지 등 웹 프로젝트 전체를 묶은 웹용 압축파일
+				 웹 애플리케이션을 서버에 배포할 때 사
+
 
 
 
