@@ -3,7 +3,9 @@
 @ FrameWork @
 - 프레임워크 
 	사전적 의미 : Frame을 가지고 하는 작업 또는 구조물의 뼈대나 틀
-	SW 적 의미 : 비즈니스 로직이 빠진 뼈대만 갖춰진 반제품 형태의 애플리케이션
+	SW 적 의미 : 비즈니스 로직이 빠진 뼈대만 갖춰진 반제품 형태의 애플리케이션(기본 구조와 규칙을 가짐)
+			기본 구조 : 디렉토리 구조, 라이프 사이클 관리			
+			규칙 : 코딩 규약, API 사용 규칙
 
 @ Spring FrameWork @
 - 자바 애플리케이션 개발을 위한 경량 프레임워크
@@ -22,9 +24,12 @@
 @ 주요 특징 @
 - POJO 기반의 DI, AOP, PSA
 	DI(Dependency Injection : 의존성 주입)
+		필요한 객체를 내가 직접 만들지 않고, 스프링이 대신 넣어주는 
+		의존성 : 한 객체가 다른 객체의 기능이나 도움 없이는 제대로 동작할 수 없는 관
 	AOP(Aspect Oriented Programming : 관점 지향 프로그래밍)
 		비즈니스 로직에서 종간 관심사 코드를 분리/모듈화하고 필요한 곳에 적용한다.
 		핵심 관심사에 집중
+		공통 코드는 따로 빼서 한 번만 작성해 놓는 
 	PSA(Portable Service Abstraction : 이식 가능한 서비스 추상화)
 		추상화란?	
 		어렵고 복잡한 개념을 특정 환경에 종속되지 않고 쉽게 사용할 수 있게 추상화된 레이어 제공
@@ -60,7 +65,7 @@
 - 테스팅 life cycle 관련 기본 annotation (@Test, @BeforeEach, @AfterEach, @BeforeAll, @AfterAll, @DisplayName)
 
 @ assertion @
-- 단정문 : 메서드 호출 결과가 예산한 값고 동일한지 판단하는 문장
+- 단정문 : 메서드 호출 결과가 예한 값고 동일한지 판단하는 문장
 - org.junint.jupiter.api.Assertions에 다양한 assertion 메서드들이 static하게 제공됨
 - standard assertion
 	대부분 assertion 메서드들은 긍정과 부정이 쌍으로 존재
@@ -87,4 +92,35 @@
 - Repeatable : 여러 번 반복해서 테스트를 진행하더라도 동일하게 동작해야 한다.
 - Self-Validating : 테스트 자체만으로 검증이 완료되어야 한다.
 - Timely : TDD를 한다면 테스트는 production code 개발 전에 진행해야 한다.
+
+@@@ Maven @@@
+@ Maven @
+- 메이븐 사이트 링크
+- 아파치 재단에서 관리하는 SW 프로젝트 관리 도구
+- POM(Project Object Model) 기반
+	프로젝트의 구성요소, 빌드 설정, 의존성 관리 등을 XML에서 관리
+	프로젝트의 컴파일이나 테스트 실행 시 필요한 라이브러리 및 플러그인 관리
+- 주요 특징
+	프로젝트 구조를 강제 : 다양한 개발 환경에서 동일한 개발 환경 구축
+	중앙 집중형 라이브러리 저장소를 통한 의존성 관리 : 프로젝트 설정 시간 감소 및 의존성 관리 간소화
+	빌드 생명 주기 관리 : 표준화된 빌드 생명 주기 제공
+
+@ pom.xml의 주요 속성 @
+- modelVersion : POM model의 버전으로 현재는 4.0.0으로 고정
+- parent : 상위 프로젝트에 대한 정보로 상위 프로젝트의 내용을 현재 프로젝트에서 상속해 사용
+- groupId : 프로젝트를 생성하는 회사의 아이디로 일반적으로 도메인 이름을 거꾸로 사용
+- artifactId : 프로젝트 이름 성격으로 groupId 내에서 유일해야 함
+- version : 프로젝트의 현재 버전으로 프로젝트 개발 중일 떄는 SNAPSHOT을 접미사로 사용
+- packaging : 배포 파일의 패키징 유형(jar, war)
+- name : 프로젝트, 프로젝트 이름
+- properties : pom.xml에서 사용할 속성 선언을 선언. 주로 라이브러리의 버전을 한 군데서 관리하기 위함
+- dependencies : 프로젝트와 의존 관계에 있는 라이브러리들을 관리
+
+@ dependency와 scope
+- scope : 해당 의존성을 언제 어떻게 클래스 패스에 넣을 것인가?
+- compile : 기본 범위로 생략 시 적용되며 컴파일과 런타임에 모두 사용 가능
+
+
+
+
 	
