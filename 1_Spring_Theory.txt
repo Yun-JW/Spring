@@ -46,12 +46,13 @@
 - 장기간 동작하는 시스템 상태에 대한 기록
 
 @ Slf4j(Simple Logging Facade for java) @
+#facade : 복잡한 내부 구현을 감추고, 단순한 인터페이스를 제공하는 디자인 패턴
 - Slf4j: java에서 logging을 위한 facade
 	facade패턴은 라이브러리의 복잡한 구조를 단순화 시켜 인터페이스로 제공하는 패턴(ex JDBC)
 	Slf4J의 구현체는 log4j, logback
 
 - 특징
-	1. 심각도에 따라 trace < debug < info < warn < error 다섯 단계로 로그 구분
+	1. 문제의 심각도에 따라 trace < debug < info < warn < error 다섯 단계로 로그 구분
 	2. 사용자 설정에 따라 로그 레벨 결정
 		trace : trace, debug, info, warn, error 표시 - 개발 과정
 		info : info, warn, error만 표시 - 운영 과정
@@ -65,7 +66,7 @@
 - 테스팅 life cycle 관련 기본 annotation (@Test, @BeforeEach, @AfterEach, @BeforeAll, @AfterAll, @DisplayName)
 
 @ assertion @
-- 단정문 : 메서드 호출 결과가 예한 값고 동일한지 판단하는 문장
+- 단정문 : 메서드 호출 결과가 예상한 값과 동일한지 판단하는 문장
 - org.junint.jupiter.api.Assertions에 다양한 assertion 메서드들이 static하게 제공됨
 - standard assertion
 	대부분 assertion 메서드들은 긍정과 부정이 쌍으로 존재
@@ -122,9 +123,9 @@
 - provided : 컴파일과 테스트시에는 사용되지만 런타임에는 외부 환경에서 제공되는 것을 사용
 	운전 연습을 할 때에는 연습용 차를 사용하지만 막상 시험 볼때는 시험장의 차를 사용하는 케이스
 	Servlet API를 사용하는데 런타임에는 WAS가 이를 제공하기 때문에 packaging 과정에서 제외하려면 provided로 설정
-- runtime : 컴파일 시에는 불필요하고 실생 시에만 필요한 경우
+- runtime : 컴파일 시에는 불필요하고 실행 시에만 필요한 경우
 	JDBC 드라이버 처럼 런타임이나 테스트 시는 classpath에 포함되지만 컴파일 시에는 포함되지 않음
-- test : 테스트 진행 시에만 사용되고 배포 시에는 제오됨. 따라서 main 영역에서는 사용 않음
+- test : 테스트 진행 시에만 사용되고 배포 시에는 제외됨. 따라서 main 영역에서는 사용 않음
 - system : 로컬 시스템에 설치된 JAR 파일처럼 외부에서 제공되는 의존성을 참조하는 경우에 사용
 
 @ life cycle 관리
@@ -141,7 +142,7 @@
 - Deploy : 만들어진 패키지를 원격 저장소에 배포하는 단계
 
 - 각 Phase는 그냥 논리적인 단계
-- 실제로는 phase에 연결된 plugin이 있으며 이 plugin 들이 수행할 수 있는 명령(goal)이 실
+- 실제로는 phase에 연결된 plugin이 있으며 이 plugin 들이 수행할 수 있는 명령(goal)이 실행
 # JAR(Java Archive) : 자바 클래스 파일들, 이미지, 설정 파일 등을 하나로 묶은 압축 파일
 			자바 프로그램을 배포할 때 사용
 # WAR(Web Application Archive) : JSP, 서블릿, HTML, CSS, 이미지 등 웹 프로젝트 전체를 묶은 웹용 압축파일
