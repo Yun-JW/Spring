@@ -72,23 +72,55 @@
 	public @interface Configuration{ }
 - @ Bean
 	빈을 선언하기 위한 annotation으로 method level에 선언하며 method의 이름은 빈의 이름
-	@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE})
-	@Retention(RetentionPlicy.RUNTIME)
-	@Documented
+	@Target({ElementType.METHOD, ElementType.ANNOTATION_TYPE}) // 이 애너테이션은 매서드 or 다른 애너테이션 정의 위에만 사용 가능
+	@Retention(RetentionPlicy.RUNTIME) // 런타임까지 애너테이션 정보가 유지됨
+	@Documented // Javadoc에 이 애너테이션도 표시되게 함
 	public @interface bean{
-		@AliasFor("name")
+		@AliasFor("name") // value와 name을 서로 동의어로 연결시 
 		String[] value() default {};
 		@AliasFor("value")
 		String[] name() default {};
 	}
-@ 메타정보의 작성
-- 자료 참조
+1. POJO로 빈 구성
+2. 메타정보의 작성
+- 	@Configuration // 여기는 설정 정보가 담겨있습니다.
+	public class WasherConfig{
 
-@ 빈 사용
-- 자료 참조
+		@Bean // 메서드를 통해서 빈 생성
+		public SWasher sWasher(){ // SWaher 타입의 빈 생성, 빈 이름은 sWaher
+			return new SWasher(); // 실제로 사용될 빈 객체 반환
+		}
+	
+		@Bean
+		public LWasher lWasher(){
+			return new LWasher();
+		}
+	
+		@Bean(name = "myWasherUser")
+		public WasherUser washerUser(){
+			WasherUser washerUser = new WasherUser();
+			washerUser.setWasher(sWasher());
+			return washerUser;
+		}
+	}
+	
+
+3. 빈 사용
+public class WasherUserTest{
+	public static void main(String[] args){
+		ApplicationContext ctx = new AnnotationConfigApplicationContext(WasherConfi.class); // 설정 정보로 컨테이너 생성
+		WasherUser user = ctx.getBean(WasherUser.class); //WasherUser 타입의 빈을 가져옴
+		user.userWasher("옷");
+
+		Washer sWasher = ctx.getBean(SWasher.class); // SWaher 타입의 빈을 가져옴, 
+		System.out.println(sWasher==user.getWasher()); // 같은 객체인지 확인
+	}
+}
+# ctx.getBean(SWahser.class) >>> 메서드가 반환하는 객체 클래스를 매개변수로 사
+# ctx.getBean("sWasher") >>> 이름이 sWahser인 메서드를 매개변수로 하여 해당 메서드가 반환하는 객체를 반환 
+# ctx.getBean("sWaher", Washer.class); // 동일 타입이 여럿일 경우 타입 + 이름 기반으로 빈 조회 필
 
 @ 빈 조회
-- 자료 참조
 - Spring Container는 기본적으로 빈을 타입 기반으로 관리
 
 @ 이제 main은 그만
