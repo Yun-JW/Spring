@@ -173,7 +173,7 @@ public class WasherUserTest{
 
 @ Qualifier
 - 이름 기반으로 주입될 빈을 한정짓기 위해서 사용하는 annotation(@Autowird와 함께 사용)
-# camal case vs pascal case
+# camal case vs pascal case vs snake case
 
 @ Component
 - 특별한 의미를 가지지 않은 단순히 "빈의 대상"임을 나타내는 annotation
@@ -197,8 +197,9 @@ public class WasherUserTest{
 	많은 경우 field를 blank final로 선언하고 생성자 주입을 사용하는데 lombok의 @requiredArgsConstructor 활용
 - setter 주입 : 선택적인 의존성을 가진 빈의 주입에 적합
 - field 주입: 비추
-	코드가 가장 간결하기는 하지만 테스트 시 Mock 객체를 주입하기가 어렵고 빈의 분변성을 보장하지 ㅇ낳음
+	코드가 가장 간결하기는 하지만 테스트 시 Mock 객체를 주입하기가 어렵고 빈의 분변성을 보장하지 않음
 	단위테스트 처럼 특별한 목적을 위해 작성된 경우에만 사용 권장
+# Mock Object : 단위 테스트에서 자주 사용되는 가짜 객체
 
 @ 설정 방식에 따른 DI 방법의 비교
 - 명시적 DI
@@ -221,6 +222,7 @@ public class WasherUserTest{
 - @bean에서 메서드의 파라미터는 자동으로 @Autowired 대체
 
 - @Value
+	설정 파일(application.properies 또는 application.yml)에 정의된 값을 자바 클래스의 필드에 주입할 때 사
 	객체가 아닌 스칼라 값(문자열, 숫자 등)을 주입 받는데 사용
 	주로 설정 파일에 선언된 property를 참조하는 경우 사용 : ${} 내부에 property 이름 등록
 
