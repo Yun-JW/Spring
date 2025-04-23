@@ -9,32 +9,46 @@
 #레거시(Legacy) : 오래된 시스템이나 코드
 
 @ 프로젝트 구조 @
--일반적인 자바 코드
-- 자바 이외의 리소스
-	정적 웹 리소스
-	동적 웹 리소스
-	애플리케이션 설정 정보
--테스팅 관련 소스 및 리소스
+-일반적인 자바 코드(src/main/java)
+- 자바 이외의 리소스(src/main/resources)
+	정적 웹 리소스(static)
+	동적 웹 리소스(templates)
+	애플리케이션 설정 정보(application.properties)
+-테스팅 관련 소스 및 리소스(src/test/java)
 - 프로젝트 구성정보 (pom.xml)
 
 @ application.properties @
 - application 동작에 필요한 property 설정 : application.properties or application.yml 형태로 작성
 - 작성 방법은 다르지만 프로그램 내부에서의 동작은 동일
-- .properties 작성법 : property와 vaue는 =로 구분
+- .properties 작성법 : property와 value는 =로 구분
+	(예시)
+	server.port=8080
+	spring.application.name=MySpringApp
+	app.name=GPT온라인
 - 코드에서의 속성 활용: @Value("${property_name}")으로 속성 활용 >>> Scalar를 주입받는다.
 	필요한 타입으로 자동 형 변환 가능
 #Autowired : Type 기반으로 Bean을 주입받는다.
 #logger : 로그를 출력하기 위한 도구 / 시스템의 실행흐름이나 상태를 기록하는 도구
+# log.debug("debug: {}", roles); >>> roles 변수의 값을 로그로 출력, {} placeholder 뒤의 변수와 자동 매핑
+					
 
 @ built-in property @
+- built-in property란 미리 만들어진 property이다.
 - core Properties
 - Server Properties
 
 @ pom.xml 분석 @
+- <properties> </properties>  // 변수에 대한 선언 
+	<java.version>17</java.version> // java.version이라는 변수에 값 17이 들어감
+- SpringBoot는 dependecy의 버전은 parent로부터 가져온다(Boot는 계층 구조를 가짐)
+	미리 스타터에 환경설정이 되어있어서 그것들을 가져온다.
+	스타터에 라이브러리가 없는경우에는 버전을 명시해야
+	Q : 스타터에 라이브러리가 있는지 없는지 하나하나 확인해야해?
+	A : NO, 버전을 명시하고 오류가 뜨면 해당 버전 코드를 삭제하면 
 
 @SpringBootApplication
 - SpringBoot 애플리케이션의 시적점인 클래스에 선언하는 애너테이션
-- 내부적으로 @SpringBootConfoguration, @EnableAutoConfiguration, @ComponentScan을 가짐
+- 내부적으로 @SpringBootConfiguration, @EnableAutoConfiguration, @ComponentScan을 가짐
 
 @SpringBootConfiguration
 - 내부적으로 @Configuration을 가짐 ( 빈 등록 등을 처리할 수 있는 근거)
@@ -43,10 +57,10 @@
 @EnableAutoConfiguration
 - 의존성에 근거해서 자동 설정 지원
 
-- SerbletWebSeverFactoryAutoConfiguration
+- ServletWebSeverFactoryAutoConfiguration
 	@ConditionalOnClass(ServletRequest.class) 자동 설정의 조건들
 	@ConditionalOnWebApplication(type = Type.SERVLET)
-	@EnableConfigurationProperties(ServerProperties.class) 설정 가능한 property 들
+	@EnableConfigurationProperties(ServerProperties.class) 설정 가능한 property 들 초기
 
 @ComponentScan : 묵시적 빈 등록 형태로 선언된 빈 scan
 	언제나 @SpringBootApplication이 선언된 클래스의 하위 패키지 scan 중
