@@ -80,6 +80,11 @@
 
 @ Scope : 빈 객체가 어떤 범위까지 존재할 것인가?
 - 스프링 컨테이너가 빈 객체를 어떻게 생성하고 언제까지 관리할 것인지를 결정
+- singleton은 bean의 기본 scope로 생략 가능
+1. singleton : 애플리케이션 당 1개의 bean 인스턴스만 생성, 스프링 컨테이너가 시작할 때 생성됨
+2. prototype : 요청할 때마다 새로운 bean 인스턴스 생성, 주로 상태를 가지는 객체에 사용
+3. request : HTTP 요청마다 하나의 Bean 생성, 웹 애플리케이션에서만 사용 가능
+4. session : HTTP 세션마다 하나의 Bean 생성, 로그인 사용자마다 객체가 따로 있
 
 @ 스코프 별 특징
 - Singleton Scope : 비지니스 로직을 재사용하기 위해 빈을 관리하는 scope
@@ -94,19 +99,20 @@
 	만들려는 목적은 Prototype Scope와 유사
 
 #stateless : 서버가 이전 요청의 상태를 저장하지 않는 방식
+# lombok : 반복되는 Java코드를 자동으로 생성해주는 라이브러리
 
 @ 자주 사용하는 annotation
 @Getter / @Setter : 멤버 변수에 대한 getter / setter 메서드 생성
 @ToString : toString() 메서드 재정의
 @EqualsAndHashCode : equals()와 hashCode() 재정의
-@NotNull : 객체형에 대해 Null 값 불가 표시, null 체크 로직 삽입
+@NonNull : 객체형에 대해 Null 값 불가 표시, null 체크 로직 삽입
 @AllArgsConstructor : 모든 멤버 변수를 파라미터로 하는 생성자 생성
 @NoArgsConstructor : 기본 생성자 명시적으로 생성
 @RequredArgsConstructor : final 및 @NonNull 멤버 변수를 이용한 생성자 생성
 @Data : @ToString, @EqualsAndHashCode, @Getter, @Setter, @RequiredArgsConstructor 적용
 		@RequiredArgsConstructor는 다른 생성자가 없을 때만
 @Builder : 빌더 패턴을 통한 객체 생성 지원
-@Slf4j : Slf4j의 Logger 타입 변수 log 생성
+@Slf4j : Slf4j의 Logger 타입 변수 log 생성(Simple Logging Facade for Java)
 #Slf4j : 다양한 로깅 프레임워크를 통합해서 쓸 수 있게 해주는 로깅 인터페이스
 
 @ @Data 사용 주의
