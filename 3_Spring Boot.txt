@@ -142,7 +142,7 @@
 - stereo type annotation 적용 : @Service
 - singleton은 spring framework 차원에서 지원 - 빈은 POJO로 구성
 - service는, DBUtio, dao(==repository)를 반드시 필요한 의존성으로 가짐
-	final field로 구성하고 @RequiredArgsConstructor 적용
+	final field로 Dao와 DBUtil을 구성하고 @RequiredArgsConstructor 적용
 
 @ Controller 수정
 - 아직 웹 서비스는 불가하지만 컴파일을 위해 기존 코드 변경분만 반영
