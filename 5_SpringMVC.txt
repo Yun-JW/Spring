@@ -126,5 +126,25 @@ webapp>WEB-INF>views : JSP를 위한 폴더 구조
 	여러 값의 경우 배열 또는 List/Set 형태로 전달
 
 <<< @ModelAttribute >>>
-- 전달된 파라미터들을 DTO의 propert 이름 기반으로 setter와 자동 연결해서 DTO todtjd
+- 전달된 파라미터들을 DTO의 propert 이름 기반으로 setter와 자동 연결해서 DTO 생성
+- 내부적으로 일어나는 일
+	기본 생성자를 통해 객체 생성(없다면 유일한 생성자 활용 - 해당 생성자에서 선언한 파라미터 모두 필요)
+	setter를 통해 property 설정
+	model에 attribute 추가(이름은 클래스 이름의 camel case)
+<<< @CookieValue >>>
+- cookie의 name 값에 매핑된 value를 얻어올 때 용이
+	쿠키의 생성은 기존과 동일
+	@RequestParam과 마찬가지로 자동 형 변환 지원
+
+<<< Redirect 시의 데이터 전달 기법 >>>
+- url 뒤에 query string으로 파라미터 전달 - url이 지저분해짐
+- session에 저장 - 단발성 데이터의 경우 세션 관리를 위해 사용 후 지워야 하는 번거로움
+- RedirectAttributes extends Model
+	attribute들은 query-string을 이용해 다음 페이지로 전달됨
+	query-string 형태의 파라미터이므로 문자열 형태의 데이터만 전송 가능
+
+- Flash Scope : Redirect가 완료될 때까지만 저장되는 Spring 지원 scope, 일회성
+	request < falsh < session
+	내부적으로 한번의 request 후 사라지는 session scope
+	Flash scope에 저장하더라도 Flash scope로 전달이 불가능한 경우는 fall back 개념으로 query-string으로 전달
 	
