@@ -1,0 +1,40 @@
+6_Spring과 Model
+
+@@@ Spring과 model @@@
+<<<Enterprise Application의 일반적인 Model 계층 구조 >>>
+- Service Layer
+	high-level의 기능을 외부(클라이언트)에게 노출시킴
+	use-case, 비즈니스 로직이 구현되는 곳
+	업무의 단위로 Transaction 처리 필요
+-Data Access Layer(Repository)
+	애플리케이션에서 데이터 저장소(RDB 등)에 접근하기 위한 계층
+	단일 쿼리 단위
+
+<<< 일반적인 Model의 문제점 >>>
+- 기술 별로 단계적인 작업 필요 > cross cutting concern 발생
+
+<<< 다양한 DB 접속 기술에 대해 공통된 방식으로 접근 처리 >>>
+- @Transactional: DB 접근 기술 무관한 선언적 Tranction 처리
+- 리소스 자동 관리 - 사용 후 자동 close
+- 범용적인 예외 처리: DB 마다의 차이를 Spring이 픕수, 별도로 분석할 필요가 없음
+
+@@@ MyBatis @@@
+- Persistence framework
+- SQL과 Object를 편리하게 맵핑하는 프레임워크
+- 특징
+	내부적으로 PreparedStatement사용
+		하지만 파라미터를 설정하기 위한 코드가 필요 없음
+	ResultSet 내용을 DTO에 저장하기 위한 코드가 필요 없음
+		1회 매핑 룰 작성 필요
+	전통적으로 XML에서 SQL을 관리
+		@사용 기능 추가
+
+@@@ MyBais 구조 @@@
+- mapper xml
+	SQL 쿼리를 정의해서 등록하며 파라미터 및 결과에 대한 매핑 처리
+- 설정파일: DB 접속 설정, Transaction등 MyBatis 동작 규칙 정의
+	Spring Boot에서는 application.propertise로 통합
+
+@@@ 기존 프로젝트에 spring boot에서 제공하는 starter 추가하기 @@@
+- Spring > Add Starters > 추가할 starter 등록
+
